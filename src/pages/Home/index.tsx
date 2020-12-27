@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import api from '../../services/api';
 import { RectButton } from 'react-native-gesture-handler';
-import { Feather as Icon } from "@expo/vector-icons"
+import { AntDesign as Icon } from "@expo/vector-icons"
 
 import AppLoading from 'expo-app-loading';
 import Constants from 'expo-constants';
@@ -77,11 +77,11 @@ const Home: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.metaContainer}>
         <View style={styles.metaInfo}> 
-          <Text>Número de transações</Text>
+          <Text style={{ fontFamily: 'Lato_700Bold' }}>Número de transações</Text>
           <Text style={styles.metaNumber}>{totalTransactions}</Text>
         </View>
         <View style={styles.metaInfo}> 
-          <Text>Valor Total</Text>
+          <Text style={{ fontFamily: 'Lato_700Bold' }}>Valor Total</Text>
           <Text style={styles.metaNumber}>R$ {formatMoney(totalAmount)}</Text>
         </View>
       </View>
@@ -94,8 +94,8 @@ const Home: React.FC = () => {
       />
 
       <RectButton style={styles.button} onPress={() => {}}>
-        <Icon name="plus-circle" color="#FFF" size={24} />
-        <Text style={styles.buttonText}>Criar Transação</Text>
+        <Icon name="pluscircle" color="#DFD5FF" size={22} />
+        <Text style={styles.buttonText}>Criar transação</Text>
       </RectButton>
       
 
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   metaContainer: {
     backgroundColor: '#F2F2F3',
     height: 208,
-
+    paddingTop:14
   },
 
   regularText: {
@@ -175,16 +175,14 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     backgroundColor: "rgba(0, 0, 0, 0.1)",
-    // justifyContent: "center",
-    // alignItems: "center",
   },
 
   buttonText: {
-    paddingHorizontal:4,
-    justifyContent: "center",
-    textAlign: "center",
+    paddingHorizontal:8,
+    // justifyContent: "center",
+    // textAlign: "center",
     color: "#FFF",
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Lato_700Bold",
     fontSize: 16,
   },
 
