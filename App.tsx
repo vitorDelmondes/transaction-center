@@ -3,9 +3,9 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Lato_400Regular, Lato_700Bold, useFonts } from '@expo-google-fonts/lato';
 
-import Home from './src/pages/Home';
+import Routes from './src/router';
+import { Lato_400Regular, Lato_700Bold, useFonts } from '@expo-google-fonts/lato';
 
 export default function App() {
 
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" backgroundColor="#F2F2F3" translucent/>
-      <Home/>
+      <Routes/>
     </>
   );
 }

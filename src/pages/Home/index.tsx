@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import api from '../../services/api';
 import { RectButton } from 'react-native-gesture-handler';
-import { AntDesign as Icon } from "@expo/vector-icons"
+import { AntDesign as Icon } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
 import AppLoading from 'expo-app-loading';
 import Constants from 'expo-constants';
@@ -31,6 +32,8 @@ const Item = ({ amount, date, name, status }:ItemValue) => (
 );
 
 const Home: React.FC = () => {
+
+  const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState('');
@@ -93,7 +96,7 @@ const Home: React.FC = () => {
         extraData={selectedId}
       />
 
-      <RectButton style={styles.button} onPress={() => {}}>
+      <RectButton style={styles.button} onPress={() => { navigation.navigate('NewTransaction') }}>
         <Icon name="pluscircle" color="#DFD5FF" size={22} />
         <Text style={styles.buttonText}>Criar transação</Text>
       </RectButton>
