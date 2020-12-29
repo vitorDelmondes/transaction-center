@@ -34,25 +34,26 @@ const Item = ({ amount, date, name, status }:ItemValue) => (
 const Home: React.FC = () => {
 
   const navigation = useNavigation();
-
+  
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalTransactions, setTotalTransactions] = useState(0);
   const renderItem = ({item}:any) => <Item amount={item.amount} date={item.date} name={item.credit_card_holder_name} status={item.status} />;
 
-  // const getTransactions = async () => {
-  //   try {
-  //     const resp = await api.get('/transactions');
-  //     console.log('resp', resp);
-  //   } catch (err) {
-  //     console.log('getTransactions:', err);
-  //   }
-  // }
+  const getTransactions = async () => {
+    try {
+      const resp = await api.get('/transactions');
+      setData(resp.data)
+    } catch (err) {
+      console.log('getTransactions:', err);
+    }
+  }
 
-  // useEffect(() => {
-  //   getTransactions();
-  // }, []);
+  useEffect(() => {
+    getTransactions();
+  }, []);
 
   // useEffect(() => {
   //   if (loading) {
@@ -60,11 +61,11 @@ const Home: React.FC = () => {
   //   }
   // }, [loading]);
 
-  const calculateMetaData = () => {
+  const calculateMetaData = async () => {
     let totalAm = 0;
     let totalTran = 0;
-    dataTransactions.transactions.map((item, index) => {
-      totalAm += item.amount;
+    await data.map((item:any, index) => {
+      totalAm = +totalAm + (+item.amount);
       totalTran = index;
     })
     setTotalAmount(totalAm);
@@ -73,7 +74,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     calculateMetaData();
-  }, [dataTransactions]);
+  }, [data]);
 
 
   return (
@@ -90,9 +91,9 @@ const Home: React.FC = () => {
       </View>
 
       <FlatList
-        data={dataTransactions.transactions}
+        data={data}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item:any) => item.id}
         extraData={selectedId}
       />
 
