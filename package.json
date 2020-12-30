@@ -12,6 +12,7 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
+    "@types/react-redux": "^7.1.14",
     "axios": "^0.21.0",
     "date-fns": "^2.16.1",
     "expo": "~40.0.0",
@@ -31,6 +32,9 @@
     "react-native-screens": "~2.15.0",
     "react-native-text-input-mask": "^2.0.0",
     "react-native-web": "~0.13.12",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "reduxsauce": "^1.2.0",
     "remask": "^0.1.0-alpha.5",
     "styled-components": "^5.2.1",
     "vanilla-masker": "^1.2.0"

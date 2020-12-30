@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Text, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import api from '../../services/api';
 import { RectButton } from 'react-native-gesture-handler';
 import { AntDesign as Icon } from "@expo/vector-icons";
@@ -31,16 +31,15 @@ const Item = ({ amount, date, name, status }:ItemValue) => (
   </View>
 );
 
-const Home: React.FC = () => {
+const Home: React.FC = ( props:any ) => {
 
   const navigation = useNavigation();
   
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedId, setSelectedId] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalTransactions, setTotalTransactions] = useState(0);
-  const renderItem = ({item}:any) => <Item amount={item.amount} date={item.date} name={item.credit_card_holder_name} status={item.status} />;
+  const renderItem = ({item}:any) => <Item key={item.id} amount={item.amount} date={item.date} name={item.credit_card_holder_name} status={item.status} />;
 
   const getTransactions = async () => {
     try {
@@ -53,7 +52,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getTransactions();
-  }, []);
+  }, [props]);
 
   // useEffect(() => {
   //   if (loading) {
@@ -78,7 +77,11 @@ const Home: React.FC = () => {
 
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.container}>
       <View style={styles.metaContainer}>
         <View style={styles.metaInfo}> 
           <Text style={{ fontFamily: 'Lato_700Bold' }}>Número de transações</Text>
@@ -92,9 +95,10 @@ const Home: React.FC = () => {
 
       <FlatList
         data={data}
-        renderItem={renderItem}
+        extraData={data}
         keyExtractor={(item:any) => item.id}
-        extraData={selectedId}
+        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
       />
 
       <RectButton style={styles.button} onPress={() => { navigation.navigate('NewTransaction') }}>
@@ -104,6 +108,8 @@ const Home: React.FC = () => {
       
 
     </View>
+    </KeyboardAvoidingView>
+    
   )
 }
 
